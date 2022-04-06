@@ -45,4 +45,13 @@
     <color name="cardColorYellow">#FF991F</color>
     <color name="cardColorViolet">#8F51E3</color>
     <color name="cardColorRed">#F94172</color>
+
+    <!--Landing page-->
+    <color name="colorPrimaryLanding">#146f84</color>
+    <color name="colorPrimaryDarkLanding">#124353</color>
+    <color name="colorAccentLanding">#1da9bb</color>
+
+    <!--colros for recomend a course-->
+    <color name="whiteCardColor">#fff</color>
+
 </resources>

@@ -10,4 +10,13 @@
     <string name="menu_home">Mis asistencias</string>
     <string name="logout">Cerrar sesión</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <!-- Landing strings. -->
+    <string name="WelcomeContent">Bienvenido a ASYS, APP de ayuda para el marcado de asistencias estudiantil. </string>
+    <string name="RecommenderContent">Marca tu asistencia en dos simples pasos. Ingresa con tu código de estudiante y contraseña. </string>
+    <string name="welcome_2">APP asistencias UCSM</string>
+    <string name="welcome_1">Bienvenido a ASYS</string>
+    <string name="iniciar_sesion">INICIAR SESIÓN</string>
+    <string name="ir_a_mis_asistencias">IR A MIS ASISTENCIAS</string>
+
 </resources>

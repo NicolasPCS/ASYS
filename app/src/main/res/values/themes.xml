@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Asys" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Asys" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_500</item>
         <item name="colorPrimaryVariant">@color/blue_700</item>
@@ -11,12 +11,47 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-    </style>
-
-    <style name="Theme.Asys.NoActionBar">
+        <!-- Customize your theme here. -->.
+        <!--<item name="windowActionBar">false</item>-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="landing.AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryLanding</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkLanding</item>
+        <item name="colorAccent">@color/colorAccentLanding</item>
+        <item name="android:textColorHint">@color/colorPrimaryLanding</item>
+    </style>
+
+    <style name="landing.AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="viewParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--onboarding designs-->
+    <style name="landingHeaderText" parent="viewParent">
+        <item name="android:textSize">@dimen/headerSize</item>
+        <item name="android:textColor">@color/darkTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <style name="landingContentText" parent="viewParent">
+        <item name="android:textSize">@dimen/contentSize</item>
+        <item name="android:textColor">@color/darkTextColor</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
     </style>
 
     <style name="Theme.Asys.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
