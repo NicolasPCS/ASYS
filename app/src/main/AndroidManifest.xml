@@ -11,12 +11,12 @@
         android:theme="@style/Theme.Asys">
         <activity
             android:name=".landing.Start_Activity"
-            android:theme="@style/landing.AppTheme.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/landing.AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -27,6 +27,16 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".login.LoginActivity"
+            android:exported="true"
+            android:theme="@style/landing.AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.asys.MainActivity;
 import com.example.asys.R;
+import com.example.asys.login.LoginActivity;
 
 import org.w3c.dom.Text;
 
@@ -121,7 +122,7 @@ public class Start_Activity extends AppCompatActivity {
 
     private void startLoginActivity() {
         prefManager.setIsFirstTimeLaunch(false);
-        //        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 
