@@ -74,14 +74,14 @@ public class Start_Activity extends AppCompatActivity {
 
         myViewPageAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPageAdapter);
-        viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+        // viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        btnSkip.setOnClickListener(new View.OnClickListener() {
+        /*btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchHomeScreen();
             }
-        });
+        });*/
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +132,7 @@ public class Start_Activity extends AppCompatActivity {
         finish();
     }
 
-    //  viewpager change listener
+    /*//  viewpager change listener
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -153,7 +153,7 @@ public class Start_Activity extends AppCompatActivity {
             } else {
                 // still pages are left
 //                btnNext.setText(getString(R.string.next));
-                btnSkip.setVisibility(View.VISIBLE);
+                btnSkip.setVisibility(View.INVISIBLE);
             }
         }
 
@@ -161,15 +161,13 @@ public class Start_Activity extends AppCompatActivity {
         public void onPageScrollStateChanged(int state) {
 
         }
-    };
+    };*/
 
     // Making notifications bar transparent
     private void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.TRANSPARENT);
     }
 
     // View pager adapter
