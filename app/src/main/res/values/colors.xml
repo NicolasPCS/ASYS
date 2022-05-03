@@ -19,7 +19,7 @@
     <color name="darkTextColor">#020000</color>
     <color name="primaryTextColor">#019AE8</color>
     <color name="whiteTextColor">#fff</color>
-    <color name="frutorial_title">#4c4c4c</color>
+    <color name="grey_color">#4c4c4c</color>
 
     <!--Landing page-->
     <color name="colorPrimaryLanding">#146f84</color>
