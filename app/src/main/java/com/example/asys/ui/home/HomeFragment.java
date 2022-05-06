@@ -20,6 +20,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.asys.R;
 import com.example.asys.databinding.FragmentHomeBinding;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
@@ -28,7 +30,11 @@ public class HomeFragment extends Fragment {
     Button expandBtn;
     CardView cardView;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
+    // Botones asistencia
+    Button btnIngresoAsistencia;
+    Button btnSalidaAsistencia;
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
@@ -39,10 +45,34 @@ public class HomeFragment extends Fragment {
         expandBtn = (Button) root.findViewById(R.id.expandBtn);
         cardView = (CardView) root.findViewById(R.id.card_course_item);
 
+        btnIngresoAsistencia = (Button) root.findViewById(R.id.btnAsistenciaIngreso);
+        btnSalidaAsistencia = (Button) root.findViewById(R.id.btnAsistenciaSalida);
+
+        btnIngresoAsistencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Asistencia Registrada")
+                        .setContentText("Tu asistencia se registro correctamente")
+                        .show();
+            }
+        });
+
+        btnSalidaAsistencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("¡UPS!")
+                        .setContentText("Hubo un problema al registrar tu asistencia, intentalo en unos minutos")
+                        .setConfirmText("Ok")
+                        .show();
+            }
+        });
+
         expandBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(expandableView.getVisibility() == View.GONE) {
+                if (expandableView.getVisibility() == View.GONE) {
                     TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                     expandableView.setVisibility(View.VISIBLE);
                     expandBtn.setText("OCULTAR");

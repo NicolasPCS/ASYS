@@ -10,8 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.asys.MainActivity;
@@ -23,12 +26,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 public class LoginActivity extends AppCompatActivity {
 
     Button btn_login;
     EditText usuario, contrasenia;
     AlertDialog.Builder builder;
     FirebaseAuth mAuth;
+
+    // Spinner
+    Spinner spinner;
+    ArrayList<String> arrayListSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +48,18 @@ public class LoginActivity extends AppCompatActivity {
 
         changeStatusBarColor();
 
+        // Firebase
         mAuth = FirebaseAuth.getInstance();
 
         btn_login = (Button) findViewById(R.id.btnLogin);
         usuario = (EditText) findViewById(R.id.loginUsuario);
         contrasenia = (EditText) findViewById(R.id.loginContrasena);
+
+        // Spinner
+        spinner = (Spinner) findViewById(R.id.spinnerSoy);
+        arrayListSpinner = new ArrayList<>();
+
+        addSpinnerInfo();
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +76,25 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     loginUser(emailUser, passUser);
                 }
+            }
+        });
+    }
+
+    private void addSpinnerInfo() {
+        arrayListSpinner.add("Seleccionar");
+        arrayListSpinner.add("Estudiante");
+        arrayListSpinner.add("Docente");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayListSpinner);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String rolSeleccionado = parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), "Usted es: " + rolSeleccionado, Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView <?> parent) {
             }
         });
     }
