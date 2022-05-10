@@ -77,6 +77,7 @@
             android:orientation="vertical"
             android:visibility="gone">
 
+
             <TextView
                 android:id="@+id/primerTurno"
                 android:layout_width="wrap_content"
@@ -112,10 +113,10 @@
                 android:layout_marginTop="10dp">
                 
                 <Button
-                    android:id="@+id/btnAsistenciaIngreso"
+                    android:id="@+id/btnRegistroAsistencia"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
-                    android:text="Ingreso"
+                    android:text="REGISTRAR"
                     android:textSize="13sp"
                     android:background="@drawable/login_button"
                     android:textColor="@color/white"
@@ -125,10 +126,23 @@
                     android:elevation="0dp"/>
 
                 <Button
-                    android:id="@+id/btnAsistenciaSalida"
+                    android:id="@+id/btnActualizarAsistencia"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
-                    android:text="Salida"
+                    android:text="ACTUALIZAR"
+                    android:textSize="13sp"
+                    android:background="@drawable/login_button"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:elevation="0dp"/>
+
+                <Button
+                    android:id="@+id/btnEliminarAsistencia"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="ELIMINAR"
                     android:textSize="13sp"
                     android:background="@drawable/login_button"
                     android:textColor="@color/white"

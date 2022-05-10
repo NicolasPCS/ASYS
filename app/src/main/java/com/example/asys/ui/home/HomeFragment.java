@@ -1,8 +1,10 @@
 package com.example.asys.ui.home;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.transition.AutoTransition;
@@ -40,8 +42,9 @@ public class HomeFragment extends Fragment {
     CardView cardView;
 
     // Botones asistencia
-    Button btnIngresoAsistencia;
-    Button btnSalidaAsistencia;
+    Button btnRegistroAsistencia;
+    Button btnActualizarAsistencia;
+    Button btnEliminarAsistencia;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -54,8 +57,9 @@ public class HomeFragment extends Fragment {
         expandBtn = (Button) root.findViewById(R.id.expandBtn);
         cardView = (CardView) root.findViewById(R.id.card_course_item);
 
-        btnIngresoAsistencia = (Button) root.findViewById(R.id.btnAsistenciaIngreso);
-        btnSalidaAsistencia = (Button) root.findViewById(R.id.btnAsistenciaSalida);
+        btnRegistroAsistencia = (Button) root.findViewById(R.id.btnRegistroAsistencia);
+        btnActualizarAsistencia = (Button) root.findViewById(R.id.btnActualizarAsistencia);
+        btnEliminarAsistencia = (Button) root.findViewById(R.id.btnEliminarAsistencia);
 
         /*btnIngresoAsistencia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,21 +71,24 @@ public class HomeFragment extends Fragment {
             }
         });*/
 
-        btnIngresoAsistencia.setOnClickListener(new View.OnClickListener() {
+        btnRegistroAsistencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardar(root);
+                Registrar(root);
             }
         });
 
-        btnSalidaAsistencia.setOnClickListener(new View.OnClickListener() {
+        btnActualizarAsistencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("¡UPS!")
-                        .setContentText("Hubo un problema al registrar tu asistencia, intentalo en unos minutos")
-                        .setConfirmText("Ok")
-                        .show();
+                Modificar(root);
+            }
+        });
+
+        btnEliminarAsistencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Eliminar(root);
             }
         });
 
@@ -106,73 +113,107 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    public void showAlert() {
+    public void showAlertOk() {
         new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Asistencia Registrada")
                 .setContentText("Tu asistencia se registro correctamente")
                 .show();
     }
 
-    private boolean isExternalStorageWriteable() {
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            Log.i("State","Yes, it is writable");
-            return true;
-        }
-        return false;
+    public void showAlertWarning() {
+        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Tu asistencia se modificará")
+                .setContentText("¿Seguro que quieres hacerlo?")
+                .setConfirmText("Ok")
+                .show();
     }
 
-    public void guardar(View v) {
-        String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        String fileName = "archivoEnSD";
-        String contenido = "Nicolás Caytuiro Silva, marco su asistencia de:\n" +
-                "Tecnologías móviles\n"+
-                "A las: " + mydate +
-                "\nEn el horario de: 09 - 11 am";
-        if (isExternalStorageWriteable() && checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            File textFile = new File(Environment.getExternalStorageDirectory(), fileName);
-            try {
-                FileOutputStream fos = new FileOutputStream(textFile);
-                fos.write(contenido.getBytes());
-                fos.close();
+    public void showAlertError() {
+        new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Tu asistencia se eliminará")
+                .setContentText("¿Seguro que quieres hacerlo?")
+                .show();
+    }
 
-                showAlert();
+    public void Registrar(View view) {
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(getContext(),
+                "administracion", null, 1);
+        SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
+        String myDate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+        String codAl = "2019118521";
+        String nombre = "Nicolas Caytuiro Silva";
+        String curso = "Tecnologías móviles";
+        String descripcion = "Marco su asistencia de: " + curso;
+        String hora = myDate;
+        String horario = "En el horario de: 15:00 - 17:00";
+        if (!codAl.isEmpty() && !descripcion.isEmpty() && !horario.isEmpty()) {
+            ContentValues registro = new ContentValues();
+            registro.put("codigo", codAl);
+            registro.put("nombre", nombre);
+            registro.put("descripcion", descripcion);
+            registro.put("hora", hora);
+            registro.put("horario", horario);
+            BaseDeDatos.insert("asistencias", null, registro);
+            BaseDeDatos.close();
 
-                Toast.makeText(getContext(),"Archivo guardado", Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            showAlertOk();
         } else {
-            Toast.makeText(getContext(), "No se puede guardar en SD", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Debera llenar todos los campos",Toast.LENGTH_SHORT).show();
         }
     }
 
-    public boolean checkPermission(String permission){
-        int check = getActivity().checkSelfPermission(permission);
-        return (check == PackageManager.PERMISSION_GRANTED);
+    public void Eliminar(View view){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper
+                (getContext(), "administracion", null, 1);
+        SQLiteDatabase BaseDatabase = admin.getWritableDatabase();
+        String codAl = "2019118521";
+        if(!codAl.isEmpty()){
+            int cantidad = BaseDatabase.delete("asistencias","codigo=" + codAl,null);
+            BaseDatabase.close();
+
+            showAlertError();
+
+            if(cantidad == 1){
+                Toast.makeText(getContext(),"Asistencia eliminada exitosamente", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getContext(),"La asistencia no existe", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getContext(), "Debes introducir tu codigo", Toast.LENGTH_SHORT).show();
+        }
     }
 
+    public void Modificar(View view){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper
+                (getContext(), "administracion", null,1);
+        SQLiteDatabase BaseDatabase = admin.getWritableDatabase();
 
-    public void guardar2(View view) {
-        String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        String nombre = "archivoEnSD";
-        String contenido = "Nicolás Caytuiro Silva, marco su asistencia de:\n" +
-                "Tecnologías móviles\n"+
-                "A las: " + mydate +
-                "\nEn el horario de: 09 - 11 am";
+        String myDate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+        String codAl = "2019118521";
+        String nombre = "Nicolas Caytuiro Silva";
+        String curso = "Tecnologías móviles";
+        String descripcion = "Marco su asistencia de: " + curso;
+        String hora = myDate;
+        String horario = "En el horario de: 15:00 - 17:00";
+        if (!codAl.isEmpty() && !descripcion.isEmpty() && !horario.isEmpty()) {
+            ContentValues registro = new ContentValues();
+            registro.put("codigo", codAl);
+            registro.put("nombre", nombre);
+            registro.put("descripcion", descripcion);
+            registro.put("hora", hora);
+            registro.put("horario", horario);
 
-        try {
-            File tarejtaSD = Environment.getExternalStorageDirectory();
-            File rutaArchivo = new File(tarejtaSD.getPath(),nombre);
-            Toast.makeText(getContext(), tarejtaSD.getPath(), Toast.LENGTH_SHORT).show();
-            OutputStreamWriter crearArchivo = new OutputStreamWriter(getContext().openFileOutput(nombre, Context.MODE_PRIVATE));
+            showAlertWarning();
 
-            crearArchivo.write(contenido);
-            crearArchivo.flush();
-            crearArchivo.close();
-
-            Toast.makeText(getContext(), "Guardado correctamente", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            Toast.makeText(getContext(), "No se pudo guardar el archivo", Toast.LENGTH_SHORT).show();
+            int cantidad = BaseDatabase.update("asistencias", registro, "codigo=" + codAl,null);
+            BaseDatabase.close();
+            if(cantidad == 1){
+                Toast.makeText(getContext(), "Asistencia modificada correctamente", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getContext(), "La Asistencia no existe", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getContext(), "Debes Marcar tu asistencia antes de realizar esta acción", Toast.LENGTH_SHORT).show();
         }
     }
 
