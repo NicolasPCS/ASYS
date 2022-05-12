@@ -113,7 +113,7 @@
                 android:layout_marginTop="10dp">
                 
                 <Button
-                    android:id="@+id/btnRegistroAsistencia"
+                    android:id="@+id/btnAsistenciaIngreso"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:text="REGISTRAR"
@@ -126,23 +126,10 @@
                     android:elevation="0dp"/>
 
                 <Button
-                    android:id="@+id/btnActualizarAsistencia"
+                    android:id="@+id/btnAsistenciaSalida"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:text="ACTUALIZAR"
-                    android:textSize="13sp"
-                    android:background="@drawable/login_button"
-                    android:textColor="@color/white"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:elevation="0dp"/>
-
-                <Button
-                    android:id="@+id/btnEliminarAsistencia"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:text="ELIMINAR"
                     android:textSize="13sp"
                     android:background="@drawable/login_button"
                     android:textColor="@color/white"

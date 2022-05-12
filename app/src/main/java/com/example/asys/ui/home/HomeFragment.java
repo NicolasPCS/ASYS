@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.asys.R;
 import com.example.asys.databinding.FragmentHomeBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,11 +43,13 @@ public class HomeFragment extends Fragment {
     LinearLayout expandableView;
     Button expandBtn;
     CardView cardView;
+    TextView tvCurrentUser;
 
     // Botones asistencia
-    Button btnRegistroAsistencia;
-    Button btnActualizarAsistencia;
-    Button btnEliminarAsistencia;
+    Button btnAsistenciaIngreso;
+    Button btnAsistenciaSalida;
+
+    private static final String TAG = "MyActivity";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -57,9 +62,10 @@ public class HomeFragment extends Fragment {
         expandBtn = (Button) root.findViewById(R.id.expandBtn);
         cardView = (CardView) root.findViewById(R.id.card_course_item);
 
-        btnRegistroAsistencia = (Button) root.findViewById(R.id.btnRegistroAsistencia);
-        btnActualizarAsistencia = (Button) root.findViewById(R.id.btnActualizarAsistencia);
-        btnEliminarAsistencia = (Button) root.findViewById(R.id.btnEliminarAsistencia);
+        btnAsistenciaIngreso = (Button) root.findViewById(R.id.btnAsistenciaIngreso);
+        btnAsistenciaSalida = (Button) root.findViewById(R.id.btnAsistenciaSalida);
+
+        tvCurrentUser = (TextView) root.findViewById(R.id.textViewUser);
 
         /*btnIngresoAsistencia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,27 +76,6 @@ public class HomeFragment extends Fragment {
                         .show();
             }
         });*/
-
-        btnRegistroAsistencia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Registrar(root);
-            }
-        });
-
-        btnActualizarAsistencia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Modificar(root);
-            }
-        });
-
-        btnEliminarAsistencia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Eliminar(root);
-            }
-        });
 
         expandBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,88 +118,6 @@ public class HomeFragment extends Fragment {
                 .setTitleText("Tu asistencia se eliminará")
                 .setContentText("¿Seguro que quieres hacerlo?")
                 .show();
-    }
-
-    public void Registrar(View view) {
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(getContext(),
-                "administracion", null, 1);
-        SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
-        String myDate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        String codAl = "2019118521";
-        String nombre = "Nicolas Caytuiro Silva";
-        String curso = "Tecnologías móviles";
-        String descripcion = "Marco su asistencia de: " + curso;
-        String hora = myDate;
-        String horario = "En el horario de: 15:00 - 17:00";
-        if (!codAl.isEmpty() && !descripcion.isEmpty() && !horario.isEmpty()) {
-            ContentValues registro = new ContentValues();
-            registro.put("codigo", codAl);
-            registro.put("nombre", nombre);
-            registro.put("descripcion", descripcion);
-            registro.put("hora", hora);
-            registro.put("horario", horario);
-            BaseDeDatos.insert("asistencias", null, registro);
-            BaseDeDatos.close();
-
-            showAlertOk();
-        } else {
-            Toast.makeText(getContext(), "Debera llenar todos los campos",Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void Eliminar(View view){
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper
-                (getContext(), "administracion", null, 1);
-        SQLiteDatabase BaseDatabase = admin.getWritableDatabase();
-        String codAl = "2019118521";
-        if(!codAl.isEmpty()){
-            int cantidad = BaseDatabase.delete("asistencias","codigo=" + codAl,null);
-            BaseDatabase.close();
-
-            showAlertError();
-
-            if(cantidad == 1){
-                Toast.makeText(getContext(),"Asistencia eliminada exitosamente", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getContext(),"La asistencia no existe", Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            Toast.makeText(getContext(), "Debes introducir tu codigo", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void Modificar(View view){
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper
-                (getContext(), "administracion", null,1);
-        SQLiteDatabase BaseDatabase = admin.getWritableDatabase();
-
-        String myDate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        String codAl = "2019118521";
-        String nombre = "Nicolas Caytuiro Silva";
-        String curso = "Tecnologías móviles";
-        String descripcion = "Marco su asistencia de: " + curso;
-        String hora = myDate;
-        String horario = "En el horario de: 15:00 - 17:00";
-        if (!codAl.isEmpty() && !descripcion.isEmpty() && !horario.isEmpty()) {
-            ContentValues registro = new ContentValues();
-            registro.put("codigo", codAl);
-            registro.put("nombre", nombre);
-            registro.put("descripcion", descripcion);
-            registro.put("hora", hora);
-            registro.put("horario", horario);
-
-            showAlertWarning();
-
-            int cantidad = BaseDatabase.update("asistencias", registro, "codigo=" + codAl,null);
-            BaseDatabase.close();
-            if(cantidad == 1){
-                Toast.makeText(getContext(), "Asistencia modificada correctamente", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getContext(), "La Asistencia no existe", Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            Toast.makeText(getContext(), "Debes Marcar tu asistencia antes de realizar esta acción", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.example.asys.landing.Start_Activity;
 import com.example.asys.login.LoginActivity;
@@ -23,11 +24,21 @@ import com.example.asys.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+                            implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    // Firebase
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+
+    // Para mostrar usuario
+    NavigationView mNavigationView;
+    View mHeaderView;
+
+    TextView tvCurrentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarMain.toolbar);
 
         mAuth = FirebaseAuth.getInstance();
+
+        // Navigation view
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        // Navigation Header
+        mHeaderView = mNavigationView.getHeaderView(0);
+
+        // View
+        tvCurrentUser = (TextView) mHeaderView.findViewById(R.id.textViewUser);
+
+        // Set user
+        tvCurrentUser.setText(mAuth.getCurrentUser().getEmail());
 
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,5 +125,10 @@ public class MainActivity extends AppCompatActivity {
             this.finish();
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }
