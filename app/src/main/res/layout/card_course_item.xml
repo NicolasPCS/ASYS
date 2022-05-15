@@ -24,6 +24,7 @@
             android:scaleType="centerCrop"/>
 
         <TextView
+            android:id="@+id/nombreCurso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tecnologías móviles"
@@ -62,6 +63,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/nombreDocente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="José Sulla Torres"
@@ -77,19 +79,8 @@
             android:orientation="vertical"
             android:visibility="gone">
 
-
             <TextView
-                android:id="@+id/primerTurno"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="- Lunes: 9:00 - 11:00"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="10dp"
-                android:textColor="@color/grey_color"/>
-
-            <TextView
-                android:id="@+id/segundoTurno"
+                android:id="@+id/horario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="- Martes: 9:00 - 11:00"
@@ -105,13 +96,13 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginEnd="18dp"
                 android:layout_marginTop="15dp"/>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
-                
+
                 <Button
                     android:id="@+id/btnAsistenciaIngreso"
                     android:layout_width="100dp"
@@ -137,11 +128,11 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
                     android:elevation="0dp"/>
-                
+
             </LinearLayout>
 
         </LinearLayout>
-        
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
