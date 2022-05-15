@@ -6,7 +6,7 @@
     android:id="@+id/card_course_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_margin="5dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
     style="@style/CardView.Light">
@@ -120,7 +120,7 @@
                     android:id="@+id/btnAsistenciaSalida"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
-                    android:text="ACTUALIZAR"
+                    android:text="SALIDA"
                     android:textSize="13sp"
                     android:background="@drawable/login_button"
                     android:textColor="@color/white"

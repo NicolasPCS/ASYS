@@ -43,16 +43,10 @@ public class HomeFragment extends Fragment {
     private LinearLayout expandableView;
     private Button expandBtn;
     private CardView cardView;
-    private TextView tvCurrentUser;
-
-    // Botones asistencia
-    private Button btnAsistenciaIngreso, btnAsistenciaSalida;
 
     // Firebase
     private DocumentReference docRef;
     private FirebaseAuth mAuth;
-
-    private String aula, horario, nCurso, nDocente;
 
     // Adapter para inflar el CardView
     private AdapterCourse adapterCourse;
@@ -72,50 +66,24 @@ public class HomeFragment extends Fragment {
         expandBtn = (Button) root.findViewById(R.id.expandBtn);
         cardView = (CardView) root.findViewById(R.id.card_course_item);
 
-        btnAsistenciaIngreso = (Button) root.findViewById(R.id.btnAsistenciaIngreso);
-        btnAsistenciaSalida = (Button) root.findViewById(R.id.btnAsistenciaSalida);
-
-        tvCurrentUser = (TextView) root.findViewById(R.id.textViewUser);
-
         recyclerViewCourses = root.findViewById(R.id.recyclerViewAsis);
         courseArrayList = new ArrayList<>();
 
         // Firebase
         mAuth = FirebaseAuth.getInstance();
 
-        // Cargar lista
+        // Cargar y mostrar lista
         cargarListaFirebase(new myCallBack() {
             @Override
             public void onCallback(ArrayList<Course> courseList) {
                 mostrarData();
             }
         });
-        
-        /*docRef = FirebaseFirestore.getInstance().collection("asistencias").document("nicolas.caytuiro@ucsm.edu.pe").collection("cursos").document("234567");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
-                    if (doc.exists()) {
-                        Log.d("Document", doc.getData().toString());
-                    } else {
-                        Log.d("Document", "No data");
-                    }
-                }
-            }
-        });*/
 
-        /*btnAsistenciaIngreso.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
-                        .setTitleText("Asistencia Registrada")
-                        .setContentText("Tu asistencia se registro correctamente")
-                        .show();
-            }
-        });
+        return root;
+    }
 
+    private void habilitarAs() {
         expandBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,11 +97,7 @@ public class HomeFragment extends Fragment {
                     expandBtn.setText("MARCAR ASISTENCIA");
                 }
             }
-        });*/
-
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        });
     }
 
     private void mostrarData() {
@@ -188,28 +152,6 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
-    }
-
-    public void showAlertOk() {
-        new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Asistencia Registrada")
-                .setContentText("Tu asistencia se registro correctamente")
-                .show();
-    }
-
-    public void showAlertWarning() {
-        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Tu asistencia se modificará")
-                .setContentText("¿Seguro que quieres hacerlo?")
-                .setConfirmText("Ok")
-                .show();
-    }
-
-    public void showAlertError() {
-        new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
-                .setTitleText("Tu asistencia se eliminará")
-                .setContentText("¿Seguro que quieres hacerlo?")
-                .show();
     }
 
     @Override
