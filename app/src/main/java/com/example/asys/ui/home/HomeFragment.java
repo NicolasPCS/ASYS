@@ -83,23 +83,6 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void habilitarAs() {
-        expandBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (expandableView.getVisibility() == View.GONE) {
-                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-                    expandableView.setVisibility(View.VISIBLE);
-                    expandBtn.setText("OCULTAR");
-                } else {
-                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-                    expandableView.setVisibility(View.GONE);
-                    expandBtn.setText("MARCAR ASISTENCIA");
-                }
-            }
-        });
-    }
-
     private void mostrarData() {
         recyclerViewCourses.setLayoutManager(new LinearLayoutManager(getContext()));
         adapterCourse = new AdapterCourse(getContext(), courseArrayList);
