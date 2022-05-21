@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.asys.Services.PushNotification;
 import com.example.asys.landing.Start_Activity;
 import com.example.asys.login.LoginActivity;
+import com.example.asys.ui.ChatBot.ChatBotDialogflow;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -96,8 +97,9 @@ public class MainActivity extends AppCompatActivity
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                startActivity(new Intent(MainActivity.this, ChatBotDialogflow.class));
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
