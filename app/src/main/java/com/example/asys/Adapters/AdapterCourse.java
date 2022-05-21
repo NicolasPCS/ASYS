@@ -2,7 +2,9 @@ package com.example.asys.Adapters;
 
 import android.content.Context;
 import android.transition.AutoTransition;
+import android.transition.Slide;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +18,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.asys.Entities.Course;
 import com.example.asys.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TimeZone;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -58,6 +78,14 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
         holder.nombreDocente.setText(nombreDocente);
         holder.horario.setText(horario);
 
+        String dia = model.get(position).getDia();
+        String horaingreso = model.get(position).getHoraingreso();
+        String horasalida = model.get(position).getHorasalida();
+
+        holder.dia = dia;
+        holder.horaingreso = horaingreso;
+        holder.horasalida = horasalida;
+
         // Set events
         holder.setOnClickListeners();
     }
@@ -78,6 +106,8 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
 
         TextView nombreCurso, nombreAula, nombreDocente,horario;
         Button btnAsistenciaIngreso, btnAsistenciaSalida;
+
+        String dia, horaingreso, horasalida;
 
         // Expandable view
         public LinearLayout expandableView;
@@ -114,22 +144,109 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btnAsistenciaIngreso:
-                    showAlertOk();
+                    attendanceRegistration();
                     break;
                 case R.id.btnAsistenciaSalida:
                     showAlertWarning();
                     break;
                 case R.id.expandBtn:
-                    if (expandableView.getVisibility() == View.GONE) {
-                        TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-                        expandableView.setVisibility(View.VISIBLE);
-                        expandBtn.setText("OCULTAR");
+                    //if (getDayOfWeek().equals(dia) && getHourMinutes(horaingreso)) {
+                    if (getDayOfWeek().equals(dia)) {
+                        expandBtn.setEnabled(true);
+                        expandLayout();
                     } else {
-                        TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-                        expandableView.setVisibility(View.GONE);
-                        expandBtn.setText("MARCAR ASISTENCIA");
+                        expandBtn.setEnabled(false);
+                        showAlertWarning();
                     }
                     break;
+            }
+        }
+
+        void attendanceRegistration() {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            String currentUser = auth.getCurrentUser().getEmail();
+
+            Map<String, Object> user = new HashMap<>();
+            user.put("first", "Ada");
+            user.put("last", "Lovelace");
+            user.put("born", 1815);
+
+            db.collection("users").document(currentUser).collection("asistencias").add(user)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            showAlertOk();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            showAlertError();
+                        }
+                    });
+        }
+
+        boolean getHourMinutes(String hora) {
+            // Obtiene fecha y hora actuales
+            Calendar fecha = Calendar.getInstance(TimeZone.getTimeZone(ZoneId.of("America/Lima")));
+            Calendar fecha2 = Calendar.getInstance(TimeZone.getTimeZone(ZoneId.of("America/Lima")));
+
+            fecha.add(Calendar.MINUTE,-5);
+            fecha2.add(Calendar.MINUTE,5);
+
+            String format = String.format("%1$tH:%1$tM:%1$tS", fecha);
+            String format2 = String.format("%1$tH:%1$tM:%1$tS", fecha2);
+
+            System.out.println("menos " + format);
+            System.out.println("mas " + format2);
+
+            String menos5min = format;
+            String mas5min = format2;
+
+            if (hora.compareTo(menos5min) > 0 && hora.compareTo(mas5min) < 0) {
+                return true;
+            }
+            return false;
+        }
+
+        String getDayOfWeek() {
+            LocalDate date2 = LocalDate.now(ZoneId.of("America/Lima")); // Gets current date in Paris
+            // System.out.println("Dia lima " + date2.getDayOfWeek());
+
+            switch (date2.getDayOfWeek().toString()) {
+                case "MONDAY":
+                    System.out.println("Lunes");
+                    return "Lunes";
+                case "TUESDAY":
+                    System.out.println("Martes");
+                    return "Martes";
+                case "WEDNESDAY":
+                    System.out.println("Miercoles");
+                    return "Miercoles";
+                case "THURSDAY":
+                    System.out.println("Jueves");
+                    return "Jueves";
+                case "FRIDAY":
+                    System.out.println("Viernes");
+                    return "Viernes";
+                case "SATURDAY":
+                    System.out.println("Sábado");
+                    return "Sábado";
+                default:
+                    break;
+            }
+            return "No DOW";
+        }
+
+        void expandLayout() {
+            if (expandableView.getVisibility() == View.GONE) {
+                TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                expandableView.setVisibility(View.VISIBLE);
+                expandBtn.setText("OCULTAR");
+            } else {
+                TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                expandableView.setVisibility(View.GONE);
+                expandBtn.setText("MARCAR ASISTENCIA");
             }
         }
     }
@@ -143,8 +260,8 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
 
     public void showAlertWarning() {
         new SweetAlertDialog(inflater.getContext(), SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Tu asistencia se modificará")
-                .setContentText("¿Seguro que quieres hacerlo?")
+                .setTitleText("Ups!")
+                .setContentText("No te pertenece marcar tu asistencia en este horario")
                 .setConfirmText("Ok")
                 .show();
     }

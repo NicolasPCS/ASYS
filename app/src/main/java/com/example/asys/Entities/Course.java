@@ -6,6 +6,10 @@ public class Course {
     private String nombrecurso;
     private String nombredocente;
 
+    private String dia;
+    private String horaingreso;
+    private String horasalida;
+
     public String getAula() {
         return aula;
     }
@@ -38,12 +42,39 @@ public class Course {
         this.nombredocente = nombredocente;
     }
 
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
+    public String getHoraingreso() {
+        return horaingreso;
+    }
+
+    public void setHoraingreso(String horaingreso) {
+        this.horaingreso = horaingreso;
+    }
+
+    public String getHorasalida() {
+        return horasalida;
+    }
+
+    public void setHorasalida(String horasalida) {
+        this.horasalida = horasalida;
+    }
+
     public Course(){}
 
-    public Course(String aula, String horario, String nombrecurso, String nombredocente) {
+    public Course(String aula, String horario, String nombrecurso, String nombredocente, String dia, String horaingreso, String horasalida) {
         this.aula = aula;
         this.horario = horario;
         this.nombrecurso = nombrecurso;
         this.nombredocente = nombredocente;
+        this.dia = dia;
+        this.horaingreso = horaingreso;
+        this.horasalida = horasalida;
     }
 }

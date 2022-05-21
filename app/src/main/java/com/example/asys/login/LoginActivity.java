@@ -85,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void addSpinnerInfo() {
-        arrayListSpinner.add("Seleccionar");
         arrayListSpinner.add("Estudiante");
         arrayListSpinner.add("Docente");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayListSpinner);

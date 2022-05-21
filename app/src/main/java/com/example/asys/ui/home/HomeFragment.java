@@ -92,6 +92,7 @@ public class HomeFragment extends Fragment {
 
         for (int i = 0; i < courseArrayList.size(); i++) {
             Log.d("Course", courseArrayList.get(i).getAula());
+            Log.d("Course", courseArrayList.get(i).getHorario());
             Log.d("Course", courseArrayList.get(i).getNombrecurso());
             Log.d("Course", courseArrayList.get(i).getNombredocente());
         }
@@ -112,22 +113,26 @@ public class HomeFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                    //Map<String, Object> doc = document.getData();
-                                    //doc.values().toArray();
-                                //courseArrayList.add(new Course(document.getData().values()));
-                                //Log.d(TAG, document.getId() + " => " + document.getData());
-                                  //Log.d(TAG, document.getId() + " => " + doc.get("aula"));
-
                                 Course aux = new Course();
+                                String dia, horaingreso, horasalida, horario;
 
                                 aux.setAula(document.getString("aula"));
-                                aux.setHorario(document.getString("horario"));
+
+                                dia = document.getString("dia");
+                                horaingreso = document.getString("horaingreso");
+                                horasalida = document.getString("horasalida");
+
+                                horario = dia + ": " + horaingreso + " - " + horasalida;
+
                                 aux.setNombrecurso(document.getString("nombrecurso"));
                                 aux.setNombredocente(document.getString("nombredocente"));
 
-                                courseArrayList.add(aux);
+                                aux.setHorario(horario);
+                                aux.setDia(dia);
+                                aux.setHoraingreso(horaingreso);
+                                aux.setHorasalida(horasalida);
 
-                                //courseArrayList.add(new Course(doc.get("aula").toString(), doc.get("horario").toString(), doc.get("nombrecurso").toString(), doc.get("nombredocente").toString()));
+                                courseArrayList.add(aux);
                             }
                             mCallBack.onCallback(courseArrayList);
                         } else {
