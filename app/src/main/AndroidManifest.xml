@@ -22,7 +22,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
-                <!-- <action android:name="com.google.firebase.RESPOND_VIA_MESSAGE" /> -->
+<!--                <action android:name="com.google.firebase.RESPOND_VIA_MESSAGE" />-->
             </intent-filter>
         </service>
 
@@ -50,17 +50,6 @@
             android:name=".login.LoginActivity"
             android:exported="true"
             android:theme="@style/landing.AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.ChatBot.ChatBotDialogflow"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat"
-            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
