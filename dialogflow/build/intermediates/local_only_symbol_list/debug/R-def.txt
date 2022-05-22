@@ -1,0 +1,23 @@
+R_DEF: Internal format may change without notice
+local
+color colorAccent
+color colorPrimary
+color colorPrimaryDark
+drawable bg_chat_receive
+drawable bg_chat_send
+drawable border_outline
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id btnSend
+id chatView
+id constraintLayout
+id editMessage
+id message_receive
+id message_send
+layout activity_main
+layout adapter_message_one
+mipmap ic_launcher
+mipmap ic_launcher_round
+raw credential
+string app_name
+style AppTheme
