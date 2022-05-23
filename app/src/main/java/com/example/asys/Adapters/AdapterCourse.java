@@ -144,16 +144,26 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btnAsistenciaIngreso:
-                    attendanceRegistration();
+                    attendanceRegistration("Ingreso");
+                    btnAsistenciaIngreso.setEnabled(false);
                     break;
                 case R.id.btnAsistenciaSalida:
-                    showAlertWarning();
+                    attendanceRegistration("Salida");
+                    btnAsistenciaSalida.setEnabled(false);
                     break;
                 case R.id.expandBtn:
                     //if (getDayOfWeek().equals(dia) && getHourMinutes(horaingreso)) {
-                    if (getDayOfWeek().equals(dia)) {
+                    if (getDayOfWeek().equals(dia) && (getHourMinutes(horaingreso) || getHourMinutes(horasalida))) {
+                    //if (getDayOfWeek().equals(dia)) {
                         expandBtn.setEnabled(true);
                         expandLayout();
+                        if (getHourMinutes(horaingreso)) {
+                            btnAsistenciaIngreso.setEnabled(true);
+                            btnAsistenciaSalida.setEnabled(false);
+                        } else if (getHourMinutes(horasalida)) {
+                            btnAsistenciaIngreso.setEnabled(false);
+                            btnAsistenciaSalida.setEnabled(true);
+                        }
                     } else {
                         expandBtn.setEnabled(false);
                         showAlertWarning();
@@ -162,17 +172,21 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
             }
         }
 
-        void attendanceRegistration() {
+        void attendanceRegistration(String attendanceType) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseAuth auth = FirebaseAuth.getInstance();
             String currentUser = auth.getCurrentUser().getEmail();
 
-            Map<String, Object> user = new HashMap<>();
-            user.put("first", "Ada");
-            user.put("last", "Lovelace");
-            user.put("born", 1815);
+            Map<String, Object> attendance = new HashMap<>();
+            attendance.put("tipoasistencia", attendanceType);
+            attendance.put("aula", nombreAula.getText().toString());
+            attendance.put("dia", dia);
+            attendance.put("horaingreso", horaingreso);
+            attendance.put("horasalida", horasalida);
+            attendance.put("nombrecurso", nombreCurso.getText().toString());
+            attendance.put("nombredocente", nombreDocente.getText().toString());
 
-            db.collection("users").document(currentUser).collection("asistencias").add(user)
+            db.collection("users").document(currentUser).collection("asistencias").add(attendance)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
