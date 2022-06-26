@@ -1,5 +1,7 @@
 package com.example.asys.ui.home;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -80,6 +83,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        /*Intent intentAct = ((Activity) getContext()).getIntent();
+        Bundle extras = intentAct.getExtras();
+
+        if (extras != null) {
+            if (extras.getString("clave").equals("111111")){
+                Toast.makeText(getContext(), extras.getString("clave"), Toast.LENGTH_SHORT).show();
+
+            }
+        }*/
+
         return root;
     }
 
@@ -95,6 +108,7 @@ public class HomeFragment extends Fragment {
             Log.d("Course", courseArrayList.get(i).getHorario());
             Log.d("Course", courseArrayList.get(i).getNombrecurso());
             Log.d("Course", courseArrayList.get(i).getNombredocente());
+            Log.d("Course", courseArrayList.get(i).getToken());
         }
     }
 
@@ -131,6 +145,7 @@ public class HomeFragment extends Fragment {
                                 aux.setDia(dia);
                                 aux.setHoraingreso(horaingreso);
                                 aux.setHorasalida(horasalida);
+                                aux.setToken(document.getString("token"));
 
                                 courseArrayList.add(aux);
                             }

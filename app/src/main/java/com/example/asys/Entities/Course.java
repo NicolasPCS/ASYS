@@ -5,10 +5,19 @@ public class Course {
     private String horario;
     private String nombrecurso;
     private String nombredocente;
+    private String token;
 
     private String dia;
     private String horaingreso;
     private String horasalida;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getAula() {
         return aula;

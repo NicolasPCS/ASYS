@@ -1,22 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.gallery.GalleryFragment">
+    tools:context=".ui.gallery.GalleryFragment"
+    android:background="@color/white">
 
-    <TextView
-        android:id="@+id/text_gallery"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Mis cursos"
+                android:textSize="20dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_course_item0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                style="@style/CardView.Light">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/course_image"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:id="@+id/nombreCurso0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TISG"
+                        android:textSize="18sp"
+                        android:textColor="@color/darkTextColor"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="15dp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="18dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aula: "
+                            android:textSize="12sp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:layout_marginStart="0dp"
+                            android:textColor="@color/grey_color"/>
+
+                        <TextView
+                            android:id="@+id/nombreAula0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5to A"
+                            android:textSize="12sp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:layout_marginStart="4dp"
+                            android:textColor="@color/grey_color"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#88888888"
+                        android:layout_marginTop="10dp"/>
+
+                    <Button
+                        android:id="@+id/expandBtn0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="DESCARGAR CONTROL DE ASISTENCIAS"
+                        android:textColor="@color/blue_500"
+                        android:background="@drawable/ripple_effect"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginStart="12dp"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_course_item1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                style="@style/CardView.Light">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/course_image"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:id="@+id/nombreCurso1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Biología"
+                        android:textSize="18sp"
+                        android:textColor="@color/darkTextColor"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="15dp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="18dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aula: "
+                            android:textSize="12sp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:layout_marginStart="0dp"
+                            android:textColor="@color/grey_color"/>
+
+                        <TextView
+                            android:id="@+id/nombreAula1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5to A"
+                            android:textSize="12sp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:layout_marginStart="4dp"
+                            android:textColor="@color/grey_color"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#88888888"
+                        android:layout_marginTop="10dp"/>
+
+                    <Button
+                        android:id="@+id/expandBtn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="DESCARGAR CONTROL DE ASISTENCIAS"
+                        android:textColor="@color/blue_500"
+                        android:background="@drawable/ripple_effect"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginStart="12dp"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!--<androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAsis"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />-->
+
+            <!--<TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Próximas clases"
+                android:textSize="20dp" />-->
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

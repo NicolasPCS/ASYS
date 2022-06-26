@@ -13,14 +13,13 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.asys.ui.home.HomeFragment"
+        android:name="com.example.asys.ui.gallery.GalleryFragment"
         android:label="@string/info"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_logout"
-        android:name="com.example.asys.ui.gallery.GalleryFragment"
         android:label="@string/logout"
-        tools:layout="@layout/fragment_gallery" />
+        />
 
 </navigation>

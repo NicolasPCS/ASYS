@@ -1,6 +1,9 @@
 package com.example.asys.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.Slide;
 import android.transition.TransitionManager;
@@ -11,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.asys.Entities.Course;
 import com.example.asys.R;
+import com.example.asys.ui.qr.QrScannerActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,10 +73,12 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         String nombreCurso = model.get(position).getNombrecurso();
         String nombreAula = model.get(position).getAula();
         String nombreDocente = model.get(position).getNombredocente();
         String horario = model.get(position).getHorario();
+        String token = model.get(position).getToken();
 
         holder.nombreCurso.setText(nombreCurso);
         holder.nombreAula.setText(nombreAula);
@@ -85,6 +92,7 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
         holder.dia = dia;
         holder.horaingreso = horaingreso;
         holder.horasalida = horasalida;
+        holder.token = token;
 
         // Set events
         holder.setOnClickListeners();
@@ -108,6 +116,7 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
         Button btnAsistenciaIngreso, btnAsistenciaSalida;
 
         String dia, horaingreso, horasalida;
+        String token;
 
         // Expandable view
         public LinearLayout expandableView;
@@ -132,6 +141,8 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
             expandableView = (LinearLayout) itemView.findViewById(R.id.expandableLayout);
             expandBtn = (Button) itemView.findViewById(R.id.expandBtn);
             cardView = (CardView) itemView.findViewById(R.id.card_course_item);
+
+            validateIncome(context);
         }
 
         void setOnClickListeners() {
@@ -144,8 +155,7 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btnAsistenciaIngreso:
-                    attendanceRegistration("Ingreso");
-                    btnAsistenciaIngreso.setEnabled(false);
+                    validateAttendanceWithQr(view, "Ingreso");
                     break;
                 case R.id.btnAsistenciaSalida:
                     attendanceRegistration("Salida");
@@ -172,6 +182,32 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
             }
         }
 
+        private void validateAttendanceWithQr(View v, String tipoAsis) {
+            Intent intent = new Intent(v.getContext(), QrScannerActivity.class);
+            intent.putExtra("tipoAsis", tipoAsis);
+            intent.putExtra("token", token);
+            v.getContext().startActivity(intent);
+        }
+
+        public void validateIncome(Context context) {
+            Intent intentAct = ((Activity) context).getIntent();
+            Bundle extras = intentAct.getExtras();
+            preRegistration(extras);
+        }
+
+        void preRegistration(Bundle extras) {
+            if (extras != null) {
+                if (extras.getString("clave").equals(extras.getString("token"))){
+                    //Log.d("Hola: ", extras.getString("clave"));
+                    //Log.d("Hola: ", extras.getString("tipoAsis"));
+                    attendanceRegistration(extras.getString("tipoAsis"));
+                    btnAsistenciaIngreso.setEnabled(false);
+                } else {
+                    Log.d("TAG: ", "son diferentes");
+                }
+            }
+        }
+
         void attendanceRegistration(String attendanceType) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -190,7 +226,7 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            showAlertOk();
+                            //showAlertOk();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -249,7 +285,7 @@ public class AdapterCourse extends RecyclerView.Adapter<AdapterCourse.ViewHolder
                 default:
                     break;
             }
-            return "No DOW";
+            return "Invalid DOW";
         }
 
         void expandLayout() {
