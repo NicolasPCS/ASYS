@@ -15,21 +15,46 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:orientation="vertical">
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Mis cursos"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:text="Desarrollado por:"
                 android:textSize="20dp" />
 
-            <androidx.cardview.widget.CardView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jackeline Melady Peña Alejandro" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Claudia Sofia Mendoza Llaza" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Denilson Carlos Ala Samayani" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jackeline Dyanira Valdiglesias Estrada" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nicolás Esleyder Caytuiro Silva" />
+
+            <!--<androidx.cardview.widget.CardView
                 android:id="@+id/card_course_item0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -189,7 +214,7 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
             <!--<androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewAsis"

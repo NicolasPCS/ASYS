@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.example.asys"
-        minSdk 28
-        targetSdk 32
+        minSdk 26
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -76,4 +76,5 @@ dependencies {
 
     // QR
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
+
 }

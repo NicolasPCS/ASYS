@@ -135,7 +135,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // error handling.
-                messageModalArrayList.add(new MessageModal("Hola Nicolás! Para marcar tu asistencia, debes seguir los siguientes pasos:" +
+                messageModalArrayList.add(new MessageModal("Estudiante Santamariano, para marcar tu asistencia, debes seguir los siguientes pasos:" +
                         "\n1. Ubícate en el curso que te pertenece marcar tu asistencia." +
                         "\n2. Si te encuentras en el horario para marcar tu asistencia, haz click sobre “MARCAR ASISTENCIA”." +
                         "\n3. Recuerda que para registrar tu asistencia debes estar matriculado en los cursos correspondientes al semestre que te corresponde." +

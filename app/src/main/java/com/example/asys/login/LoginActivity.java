@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void addSpinnerInfo() {
         arrayListSpinner.add("Estudiante");
-        arrayListSpinner.add("Docente");
+        //arrayListSpinner.add("Docente");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayListSpinner);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);

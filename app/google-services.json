@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "626103556027",
+    "firebase_url": "https://asys-6ea49-default-rtdb.firebaseio.com",
+    "project_id": "asys-6ea49",
+    "storage_bucket": "asys-6ea49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626103556027:android:4b7ffcf4a7b5267a2ed69e",
+        "android_client_info": {
+          "package_name": "com.example.asys"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626103556027-q9csk2a61kjksotffnva3p7puluhr6vt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhrBPV9ed1afMTUOrWRYhLTfUvYGyzBvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626103556027-q9csk2a61kjksotffnva3p7puluhr6vt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

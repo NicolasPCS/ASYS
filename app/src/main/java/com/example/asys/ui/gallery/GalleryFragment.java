@@ -29,13 +29,13 @@ public class GalleryFragment extends Fragment {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        expandBtn0 = (Button) root.findViewById(R.id.expandBtn0);
-        expandBtn0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAlertOk();
-            }
-        });
+        //expandBtn0 = (Button) root.findViewById(R.id.expandBtn0);
+        //expandBtn0.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        showAlertOk();
+        //    }
+        //});
 
         return root;
     }
